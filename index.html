@@ -8,22 +8,22 @@
 <style>
   body {
     background: #0d0d0d;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
     font-family: Arial, sans-serif;
     color: #e8c782;
   }
 
   .clock-container {
     position: relative;
-    width: 320px;
-    height: 320px;
+    width: 280px;
+    height: 280px;
   }
 
-  /* Orbit rings */
+  /* Orbit rings — sized smaller to avoid text collision */
   .orbit {
     position: absolute;
     border: 2px solid #e8c782;
@@ -32,73 +32,56 @@
     transform: translate(-50%, -50%);
   }
 
-  #orbit1 { width: 260px; height: 260px; }
-  #orbit2 { width: 180px; height: 180px; }
-  #orbit3 { width: 100px; height: 100px; }
+  #orbit1 { width: 220px; height: 220px; }
+  #orbit2 { width: 150px; height: 150px; }
+  #orbit3 { width: 80px;  height: 80px; }
 
-  /* Planet base class */
+  /* Planets */
   .planet {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: #e8c782;
     border-radius: 50%;
     top: 50%; left: 50%;
   }
 
-  /* Perfect orbiting motion */
-  #p1 {
-    animation: orbit1 20s linear infinite;
-  }
+  /* Orbit distances exactly half of ring diameter */
+  @keyframes o1 { from { transform: rotate(0deg) translateX(110px); }
+                  to   { transform: rotate(360deg) translateX(110px);} }
+  @keyframes o2 { from { transform: rotate(0deg) translateX(75px); }
+                  to   { transform: rotate(360deg) translateX(75px);} }
+  @keyframes o3 { from { transform: rotate(0deg) translateX(40px); }
+                  to   { transform: rotate(360deg) translateX(40px);} }
 
-  #p2 {
-    animation: orbit2 13s linear infinite;
-  }
+  #p1 { animation: o1 20s linear infinite; }
+  #p2 { animation: o2 14s linear infinite; }
+  #p3 { animation: o3 8s linear infinite; }
 
-  #p3 {
-    animation: orbit3 8s linear infinite;
-  }
-
-  /* Spin formulas using rotate + translate */
-  @keyframes orbit1 {
-    from { transform: rotate(0deg) translateX(130px); }
-    to   { transform: rotate(360deg) translateX(130px); }
-  }
-
-  @keyframes orbit2 {
-    from { transform: rotate(0deg) translateX(90px); }
-    to   { transform: rotate(360deg) translateX(90px); }
-  }
-
-  @keyframes orbit3 {
-    from { transform: rotate(0deg) translateX(50px); }
-    to   { transform: rotate(360deg) translateX(50px); }
-  }
-
-  /* center planet */
+  /* Center body (sun) */
   .center {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: #e8c782;
     border-radius: 50%;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  /* Text placement */
+  /* Time + day, moved up so they never overlap rings */
   .time {
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -120%);
-    text-align: center;
+    transform: translate(-50%, -165%);
     font-size: 20px;
+    white-space: nowrap;
   }
 
   .day {
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -10%);
+    transform: translate(-50%, -105%);
     font-size: 14px;
   }
 </style>
@@ -134,7 +117,7 @@ function updateClock() {
   hours = hours % 12 || 12;
 
   document.getElementById("time").textContent = `${hours}:${minutes}:${seconds} ${suffix}`;
-  
+
   const weekday = now.toLocaleDateString("en-US", { weekday: "long" });
   document.getElementById("day").textContent = weekday;
 }
@@ -145,4 +128,3 @@ updateClock();
 
 </body>
 </html>
-
