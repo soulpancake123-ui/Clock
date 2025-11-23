@@ -19,11 +19,11 @@
 
   .clock-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
   }
 
-  /* circular orbit lines */
+  /* Orbit rings */
   .orbit {
     position: absolute;
     border: 2px solid #e8c782;
@@ -32,46 +32,65 @@
     transform: translate(-50%, -50%);
   }
 
-  #orbit1 { width: 240px; height: 240px; }
-  #orbit2 { width: 160px; height: 160px; }
-  #orbit3 { width: 80px;  height: 80px;  }
+  #orbit1 { width: 260px; height: 260px; }
+  #orbit2 { width: 180px; height: 180px; }
+  #orbit3 { width: 100px; height: 100px; }
 
-  /* planets */
+  /* Planet base class */
   .planet {
     position: absolute;
     width: 18px;
     height: 18px;
-    border-radius: 50%;
     background: #e8c782;
-    top: 50%;
-    left: 50%;
-    transform-origin: -100px center;
+    border-radius: 50%;
+    top: 50%; left: 50%;
   }
 
-  #p1 { animation: spin 18s linear infinite; transform-origin: -120px center; }
-  #p2 { animation: spin 12s linear infinite; transform-origin: -80px center;  }
-  #p3 { animation: spin 6s linear infinite; transform-origin: -40px center;  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg) translateX(0); }
-    to   { transform: rotate(360deg) translateX(0); }
+  /* Perfect orbiting motion */
+  #p1 {
+    animation: orbit1 20s linear infinite;
   }
 
-  /* center content */
-  .center-circle {
+  #p2 {
+    animation: orbit2 13s linear infinite;
+  }
+
+  #p3 {
+    animation: orbit3 8s linear infinite;
+  }
+
+  /* Spin formulas using rotate + translate */
+  @keyframes orbit1 {
+    from { transform: rotate(0deg) translateX(130px); }
+    to   { transform: rotate(360deg) translateX(130px); }
+  }
+
+  @keyframes orbit2 {
+    from { transform: rotate(0deg) translateX(90px); }
+    to   { transform: rotate(360deg) translateX(90px); }
+  }
+
+  @keyframes orbit3 {
+    from { transform: rotate(0deg) translateX(50px); }
+    to   { transform: rotate(360deg) translateX(50px); }
+  }
+
+  /* center planet */
+  .center {
     position: absolute;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     background: #e8c782;
+    border-radius: 50%;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
   }
 
+  /* Text placement */
   .time {
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -150%);
+    transform: translate(-50%, -120%);
     text-align: center;
     font-size: 20px;
   }
@@ -79,7 +98,7 @@
   .day {
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, 10%);
+    transform: translate(-50%, -10%);
     font-size: 14px;
   }
 </style>
@@ -97,7 +116,7 @@
   <div class="planet" id="p2"></div>
   <div class="planet" id="p3"></div>
 
-  <div class="center-circle"></div>
+  <div class="center"></div>
 
   <div class="time" id="time"></div>
   <div class="day" id="day"></div>
@@ -126,5 +145,4 @@ updateClock();
 
 </body>
 </html>
-
 
